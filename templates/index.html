@@ -11,10 +11,18 @@
         <button type="submit">Add</button>
     </form>
 
+
     <h2>Todo List:</h2>
     <ul>
         {% for todo in todos %}
-            <li>{{ todo }}</li>
+            <li>
+                <form action="/toggle-todo/{{ loop.index0 }}" method="post" style="display: inline;">
+                    <button type="submit">{{ "Undo" if todo.done else "Done" }}</button>
+                </form>
+                <span style="text-decoration: {{ 'line-through' if todo.done else 'none' }}">
+                    {{ loop.index }}. {{ todo.task }}
+                </span>
+            </li>
         {% else %}
             <li>No todos yet!</li>
         {% endfor %}
